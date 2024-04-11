@@ -45,4 +45,5 @@ echo -n "Capturing approval data using clio get table on the approvals2 table...
 echo done
 
 echo
-echo "To verify approval count, run the command 6_count_approves.sh"
+echo "To verify the on-chain transaction, use bloks.io to get the transaction block, then run the following command replacing block nbr;"
+echo -e "\tcurl --request POST --url ${api_url}/v1/chain/get_block --header 'accept: application/json' --header 'content-type: application/json' --data '{ \"block_num_or_id\": \"<block nbr>\" }'"

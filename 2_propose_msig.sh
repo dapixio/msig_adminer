@@ -41,15 +41,15 @@ echo
 
 # Proposal name validation
 # Name should be less than 13 characters and only contains the following symbol .12345abcdefghijklmnopqrstuvwxyz
-if [[ ${#proposalName} > 12 ]]; then
+if [[ ${#proposalName} -gt 12 ]]; then
   echo "  ERROR! The proposal name has a max char length of 12."
-  echo "  Format: Name should be less than 13 characters and only contains the following symbols .12345abcdefghijklmnopqrstuvwxyz"
+  echo "  Format: Name should be 12 or less characters in length and only contain the following symbols .12345abcdefghijklmnopqrstuvwxyz"
   echo
   exit 1
 fi
 if [[ ! (${proposalName} =~ ^[.12345abcdefghijklmnopqrstuvwxyz]+$) ]]; then
   echo "  ERROR! The proposal name has invalid characters."
-  echo "  Format: Name should be less than 13 characters and only contains the following symbols .12345abcdefghijklmnopqrstuvwxyz"
+  echo "  Format: Name should be 12 or less characters in length and only contain the following symbols .12345abcdefghijklmnopqrstuvwxyz"
   echo
   exit 1
 fi
