@@ -1,3 +1,5 @@
+# The repo is no longer maintained and has been archived
+
 # MSIG console manager FIO
   
 Bash scripts to create/review/approve/cancel/execute msigs
