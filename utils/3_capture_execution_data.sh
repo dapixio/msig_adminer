@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 #set -x
 
+# source utils
+SCRIPT_DIR=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+if [[ -e $SCRIPT_DIR/utils.sh ]]; then
+  source $SCRIPT_DIR/utils.sh
+fi
+CURRENT_DIR=$(pwd -P)
+if [[ -e $CURRENT_DIR/utils.sh ]]; then
+  source $CURRENT_DIR/utils.sh
+fi
+
 echo
 proposer=$( jq -r '.proposer' "0_CONFIG.json" )
 proposalName=$( jq -r '.proposalName' "0_CONFIG.json" )
@@ -9,16 +19,17 @@ if [[ -z "$proposer" || -z "$proposalName" ]]; then
   exit 1
 fi
 
-echo Multisig review
-./clio.sh multisig review "${proposer}" "${proposalName}"
-echo
+#echo Multisig review
+#./clio.sh multisig review "${proposer}" "${proposalName}"
 echo Proposer table
 #./clio.sh get table eosio.msig "${proposer}" proposal
 # to get all proposal names
 ./clio.sh get table --limit 1000 eosio.msig "${proposer}" proposal | jq -r '[ .rows[] | .proposal_name ]'
 echo
+wait_on
 echo Approvals2 table
 #./clio.sh get table eosio.msig "${proposer}" approvals2
+./clio.sh get table eosio.msig "${proposer}" approvals2 | jq -r '[ .rows[] | select(.proposal_name == "'${proposalName}'") ]'
 
 echo
 echo "To verify an mSig executed properly on-chain, run the command"
